@@ -25,17 +25,20 @@ export class BoardsService {
   }
 
   getBoardById(id: string): Board {
-    const found = this.boards.find((board) => board.id === id);
+    const foundId = this.boards.find((board) => board.id === id);
 
-    if (!found) {
+    console.log(this.boards);
+
+    if (!foundId) {
       throw new NotFoundException(`I cant find id ${id}`);
     }
 
-    return found;
+    return foundId;
   }
 
   deleteBoard(id: string): void {
-    this.boards = this.boards.filter((board) => board.id !== id);
+    const foundDeleteId = this.getBoardById(id);
+    this.boards = this.boards.filter((board) => board.id !== foundDeleteId.id);
   }
 
   updateBoardStatus(id: string, status: BoardStatus): Board {
